@@ -17,35 +17,15 @@
         android:layout_marginBottom="20dp"
         app:srcCompat="@drawable/autentication" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edt_nome_cadastrar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="-2dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edit_text"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="13dp"
-                android:hint="@string/nome" />
-
-            <EditText
-                android:id="@+id/edt_sobrenome_cadastrar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edit_text"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:padding="13dp"
-                android:hint="@string/sobrenome" />
-        </LinearLayout>
+    <EditText
+        android:id="@+id/edt_nome_cadastrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:padding="13dp"
+        android:hint="@string/nome" />
 
     <EditText
         android:id="@+id/edt_email_cadastrar"
@@ -69,14 +49,46 @@
         android:padding="13dp"
         android:hint="@string/senha" />
 
-    <Button
-        android:id="@+id/btn_cadastro_cadastrar"
+    <LinearLayout
+        android:id="@+id/lnl_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:padding="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_logar_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_switch_user"
+            android:textStyle="normal" />
+
+        <Switch
+            android:id="@+id/btn_switch_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/txt_empresa_cadastrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cadastrar"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_cadastro_cadastrar"
+        android:layout_width="391dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="19dp"
         android:text="@string/cadastrar"
-        android:theme="@style/style_button_default"/>
+        android:theme="@style/style_button_default" />
 
 </LinearLayout>

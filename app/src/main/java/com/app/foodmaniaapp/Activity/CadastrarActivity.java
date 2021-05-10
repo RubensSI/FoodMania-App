@@ -22,14 +22,12 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 public class CadastrarActivity extends AppCompatActivity {
 
-    private EditText edt_sobrenome_cadastrar, edt_nome_cadastrar;
+    private EditText edt_nome_cadastrar;
     private EditText edt_email_cadastrar;
     private EditText edt_senha_cadastrar;
     private Button btn_cadastro_cadastrar;
 
     private FirebaseAuth autentication;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +92,6 @@ public class CadastrarActivity extends AppCompatActivity {
 
     private void InitComponebts() {
         edt_nome_cadastrar = findViewById(R.id.edt_nome_cadastrar);
-        edt_sobrenome_cadastrar = findViewById(R.id.edt_sobrenome_cadastrar);
         edt_email_cadastrar = findViewById(R.id.edt_email_cadastrar);
         edt_senha_cadastrar = findViewById(R.id.edt_senha_cadastrar);
         btn_cadastro_cadastrar = findViewById(R.id.btn_cadastro_cadastrar);

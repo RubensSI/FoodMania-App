@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
-    android:padding="16dp"
+    android:orientation="vertical"
+    android:padding="14dp"
     tools:context=".Activity.AutenticationActivity">
 
     <ImageView
@@ -29,65 +29,37 @@
         android:padding="12dp"
         android:textStyle="normal" />
 
+
     <EditText
         android:id="@+id/edt_senha_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
         android:layout_marginTop="-2dp"
         android:autofillHints="@string/app_name"
+        android:background="@drawable/bg_edit_text"
         android:ems="10"
         android:hint="@string/password"
-        android:background="@drawable/bg_edit_text"
-        android:inputType="textPassword" />
-
-    <LinearLayout
-        android:id="@+id/lnl_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txt_logar_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/logar_switch_text"
-            android:textStyle="normal" />
-
-        <Switch
-            android:id="@+id/btn_switch_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/txt_cadastrar_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cadastrar"
-            android:textStyle="normal" />
-    </LinearLayout>
+        android:inputType="textPassword"
+        android:padding="12dp" />
 
     <Button
         android:id="@+id/btn_acessar_login"
-        android:layout_width="match_parent"
+        android:layout_width="391dp"
         android:layout_height="wrap_content"
-        android:padding="18dp"
+        android:layout_marginTop="20dp"
+        android:padding="19dp"
         android:text="@string/acessar"
-        android:theme="@style/style_button_default"/>
+        android:theme="@style/style_button_default" />
 
     <Button
         android:id="@+id/btn_cadastrar_login"
-        android:layout_width="320dp"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/botao_cadastro"
+        android:padding="10dp"
         android:text="@string/cadastrar"
         android:textColor="#878787"
-        android:background="@drawable/botao_cadastro"
-        android:theme="@style/CardView"/>
+        android:theme="@style/CardView" />
 
 </LinearLayout>
