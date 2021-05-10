@@ -47,6 +47,7 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:radius="2dp"
         android:padding="19dp"
         android:text="@string/acessar"
         android:theme="@style/style_button_default" />
