@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1019127059151",
+    "project_id": "foodmania-app",
+    "storage_bucket": "foodmania-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019127059151:android:73108471ffefda2a1e9dba",
+        "android_client_info": {
+          "package_name": "com.app.foodmaniaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019127059151-8q138dct7167sodt7kvql0pvvu1chp4j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.foodmaniaapp",
+            "certificate_hash": "cddfc4e75ba5d0cbc541460f1a24d1b303fa34e8"
+          }
+        },
+        {
+          "client_id": "1019127059151-vr9cq15c6t62qq2d5kegncd7si2fasav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHAbOSzL9vpHOIC25XDYC2a_lhej97lWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019127059151-vr9cq15c6t62qq2d5kegncd7si2fasav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

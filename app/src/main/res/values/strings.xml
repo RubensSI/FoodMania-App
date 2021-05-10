@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FoodManiaApp</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="acessar">Acessar</string>
+    <string name="logar_switch_text">Logar</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="senha">Senha</string>
+    <string name="nome">Nome</string>
+    <string name="sobrenome">Sobrenome</string>
+</resources>
