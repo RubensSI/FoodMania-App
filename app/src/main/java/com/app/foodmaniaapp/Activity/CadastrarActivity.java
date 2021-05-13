@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.app.foodmaniaapp.Helper.FirebaseConfig;
@@ -26,6 +27,8 @@ public class CadastrarActivity extends AppCompatActivity {
     private EditText edt_email_cadastrar;
     private EditText edt_senha_cadastrar;
     private Button btn_cadastro_cadastrar;
+    private Switch btn_switch_tipo_usuario;
+
 
     private FirebaseAuth autentication;
 

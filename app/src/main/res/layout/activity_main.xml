@@ -12,12 +12,28 @@
         android:id="@+id/imageView"
         android:layout_width="190dp"
         android:layout_height="190dp"
-        android:src="@drawable/foodspalsh"
         android:contentDescription="@string/app_name"
+        android:src="@drawable/foodspalsh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.305" />
+        app:layout_constraintVertical_bias="0.256" />
+
+    <TextView
+        android:id="@+id/txt_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food Mania"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#FAF6F6"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.592" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
