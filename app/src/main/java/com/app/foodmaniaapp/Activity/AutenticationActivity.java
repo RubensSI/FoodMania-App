@@ -31,12 +31,13 @@ public class AutenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autentication);
-        getSupportActionBar().hide();
 
         InitialComponents();
 
         autentication = FirebaseConfig.getFirefebaseAutentication();
+        autentication.signOut();
 
+        // verificar usuario logado
         checkUser();
 
         btn_acessar_login.setOnClickListener(new View.OnClickListener() {
