@@ -44,17 +44,18 @@ public class EmpresaActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+
             case R.id.menuSair :
                 deslogarUsuario();
                 break;
             case R.id.menuConfiguracoes :
-                //abrirConfigaracoes();
+                abrirConfigaracoes();
                 break;
             case R.id.menuNovoProduto :
-                //abrirNovoProduto();
+                abrirNovoProduto();
                 break;
         }
 
@@ -65,14 +66,25 @@ public class EmpresaActivity extends AppCompatActivity {
         try {
 
             autentication.signOut();
-
-            
-            Intent intent = new Intent(EmpresaActivity.this, AutenticationActivity.class);
+            Intent intent = new Intent(EmpresaActivity.this, AutenticationActivity
+                    .class);
             startActivity(intent);
             finish();
 
         } catch (Exception e) {
+
             e.printStackTrace();
         }
+
+    }
+
+    private void abrirConfigaracoes() {
+
+        startActivity(new Intent( EmpresaActivity.this, ConfiguracoesEmpresaActivity.class));
+    }
+
+    private void abrirNovoProduto() {
+
+        startActivity(new Intent(EmpresaActivity.this, NovoProdutoEmpresaActivity.class));
     }
 }
