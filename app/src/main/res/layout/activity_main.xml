@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_splashActivity"
@@ -12,29 +12,35 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="190dp"
-        android:layout_height="190dp"
+        android:layout_height="0dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="91dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="31dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/foodspalsh"
-        tools:layout_editor_absoluteX="110dp"
-        tools:layout_editor_absoluteY="120dp" />
+        app:layout_constraintBottom_toTopOf="@+id/txt_splash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txt_splash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginBottom="11dp"
         android:fontFamily="@font/fredoka_one"
         android:text="Food Mania"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#FAF6F6"
         android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="362dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2"
@@ -42,14 +48,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="284dp"
+        android:layout_marginBottom="244dp"
         android:text="Encontre seus Pratos Favoritos"
         android:textColor="@color/Primary"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="404dp" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_splash"
+        tools:ignore="MissingConstraints" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
