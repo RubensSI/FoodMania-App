@@ -122,9 +122,9 @@ public class CadastrarActivity extends AppCompatActivity {
 
     private void InitComponebts() {
         edt_nome_cadastrar = findViewById(R.id.edt_nome_cadastrar);
-        edt_email_cadastrar = findViewById(R.id.edt_email_cadastrar);
-        edt_senha_cadastrar = findViewById(R.id.edt_senha_cadastrar);
-        btn_cadastro_cadastrar = findViewById(R.id.btn_cadastro_cadastrar);
+        edt_email_cadastrar = findViewById(R.id.edt_nome_emp_config);
+        edt_senha_cadastrar = findViewById(R.id.edt_categoria_emp_config);
+        btn_cadastro_cadastrar = findViewById(R.id.btn_salvar_emp_config);
         btn_switch_tipo_usuario = findViewById(R.id.btn_switch_tipo_usuario);
     }
 }

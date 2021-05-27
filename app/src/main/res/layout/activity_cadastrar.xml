@@ -28,7 +28,7 @@
         android:hint="@string/nome" />
 
     <EditText
-        android:id="@+id/edt_email_cadastrar"
+        android:id="@+id/edt_nome_emp_config"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -39,7 +39,7 @@
         android:hint="@string/email" />
 
     <EditText
-        android:id="@+id/edt_senha_cadastrar"
+        android:id="@+id/edt_categoria_emp_config"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-2dp"
@@ -82,7 +82,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_cadastro_cadastrar"
+        android:id="@+id/btn_salvar_emp_config"
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void OpenAutentication() {
-        Intent i = new Intent(SplashActivity.this, AutenticationActivity.class);
+        Intent i = new Intent(SplashActivity.this, ConfiguracoesEmpresaActivity.class);
         startActivity(i);
         finish();
     }
