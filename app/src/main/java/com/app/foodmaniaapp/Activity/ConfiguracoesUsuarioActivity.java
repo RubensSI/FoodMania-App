@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.app.foodmaniaapp.R;
 
+import java.util.Objects;
+
 public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
 
     @Override
@@ -17,7 +19,7 @@ public class ConfiguracoesUsuarioActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Configurações Usuário");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
     }
 }

@@ -30,7 +30,7 @@ public class CadastrarActivity extends AppCompatActivity {
     private EditText edt_senha_cadastrar;
     private Button btn_cadastro_cadastrar;
     private Switch btn_switch_tipo_usuario;
-
+    private Button btn_acessa_cadastro;
 
     private FirebaseAuth autentication;
 
@@ -100,6 +100,12 @@ public class CadastrarActivity extends AppCompatActivity {
 
     }
 
+    public void openRegister(View view) {
+        Intent i = new Intent(CadastrarActivity.this, AutenticationActivity.class);
+        startActivity(i);
+        finish();
+    }
+
     private void verificaUsuarioLogado() {
         FirebaseUser usuarioAtual = autentication.getCurrentUser();
         if (usuarioAtual != null) {
@@ -126,5 +132,6 @@ public class CadastrarActivity extends AppCompatActivity {
         edt_senha_cadastrar = findViewById(R.id.edt_categoria_emp_config);
         btn_cadastro_cadastrar = findViewById(R.id.btn_salvar_emp_config);
         btn_switch_tipo_usuario = findViewById(R.id.btn_switch_tipo_usuario);
+        btn_acessa_cadastro = findViewById(R.id.btn_acessar_emp_config);
     }
 }

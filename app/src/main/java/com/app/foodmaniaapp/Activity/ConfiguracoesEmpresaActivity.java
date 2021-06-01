@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.foodmaniaapp.Helper.mFirebaseUsers;
+import com.app.foodmaniaapp.Model.Empresa;
 import com.app.foodmaniaapp.Model.Upload;
 import com.app.foodmaniaapp.R;
 
@@ -40,14 +42,27 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
     private Button mButtonChooseImage;
     private Button mButtonUpload;
     private TextView mTextViewShowUploads;
+
+    // componentes empresa
+    private EditText edt_nome_emp_config;
+    private EditText edt_categoria_emp_config;
+    private EditText edt_tempo_emp_config;
+    private EditText edt_taxa_emp_config;
+    private Button btn_salvar_emp_config;
+
+    // componentes upload imagem
     private EditText mEditTextFileName;
     private ImageView mImageView;
     private ProgressBar mProgressBar;
     private Uri mImageUri;
 
+    private String DownloadUrl = "";
+
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
+
+    private String idUsuarioLogado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +75,28 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         mButtonChooseImage = findViewById(R.id.button_choose_image);
-        mButtonUpload = findViewById(R.id.button_upload);
+        mButtonUpload = findViewById(R.id.button_upload);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
         mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
         mEditTextFileName = findViewById(R.id.edit_text_file_name);
         mImageView = findViewById(R.id.profile_image);
         mProgressBar = findViewById(R.id.progress_bar);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+        edt_nome_emp_config = findViewById(R.id.edt_nome_emp_config);
+        edt_categoria_emp_config = findViewById(R.id.edt_categoria_emp_config);
+        edt_tempo_emp_config = findViewById(R.id.edt_tempo_emp_config);
+        edt_taxa_emp_config = findViewById(R.id.edt_taxa_emp_config);
+        btn_salvar_emp_config = findViewById(R.id.btn_salvar_emp_config);
+
+        idUsuarioLogado = mFirebaseUsers.getUserId();
+
+        mStorageRef = FirebaseStorage.getInstance().getReference()
+                .child("imagens")
+                .child("empresas")
+                .child(idUsuarioLogado + "jpeg");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference()
+                .child("imagens")
+                .child("empresas")
+                .child(idUsuarioLogado + "jpeg");
 
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +111,13 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                     uploadFile();
             }
         });
+
+        btn_salvar_emp_config.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validarDadosEmpresa();
+            }
+        });
     }
 
     private void openFileChooser() {
@@ -89,6 +125,47 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private void validarDadosEmpresa() {
+
+        String nome = edt_nome_emp_config.getText().toString();
+        String taxa = edt_taxa_emp_config.getText().toString();
+        String categoria = edt_categoria_emp_config.getText().toString();
+        String tempo = edt_tempo_emp_config.getText().toString();
+
+        if ( !nome.isEmpty() ) {
+            if ( !taxa.isEmpty() ) {
+                if ( !categoria.isEmpty() ) {
+                    if ( !tempo.isEmpty() ) {
+
+                        Empresa empresa = new Empresa();
+                        empresa.setIdUsuario( idUsuarioLogado );
+                        empresa.setNome( nome );
+                        empresa.setPrecoEntrega( Double.parseDouble(taxa));
+                        empresa.setCategoria( categoria );
+                        empresa.setUrlImagem( DownloadUrl );
+                        empresa.salvar();
+                        exibirMensagem("Empresa adicionada com sucesso!");
+                        finish();
+
+                    } else {
+                        exibirMensagem("Digite um tempo de entrega");
+                    }
+                } else {
+                    exibirMensagem("Digite uma categoria");
+                }
+            } else {
+                exibirMensagem("Digite uma taxa de entrega");
+            }
+        } else {
+            exibirMensagem("Digite um nome para a empresa");
+        }
+
+    }
+
+    private void exibirMensagem(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -125,10 +202,11 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                             }, 500);
 
                             Toast.makeText(ConfiguracoesEmpresaActivity.this,
-                                    "Upload successfull", Toast.LENGTH_LONG).show();
-                            String DownloadUrl= taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                            Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
-                                    DownloadUrl);
+                                    "Upload realizado com sucesso", Toast.LENGTH_LONG).show();
+                                     DownloadUrl = taskSnapshot.getMetadata().getReference()
+                                    .getDownloadUrl().toString();
+                            Upload upload = new Upload(mEditTextFileName.getText().toString()
+                                    .trim(), DownloadUrl);
 
                             String uploadAd = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadAd).setValue(upload);

@@ -93,7 +93,6 @@ public class AutenticationActivity extends AppCompatActivity {
         finish();
     }
 
-
     private void checkUser() {
         FirebaseUser currentUser = autentication.getCurrentUser();
         if ( currentUser != null ) {
@@ -105,7 +104,6 @@ public class AutenticationActivity extends AppCompatActivity {
        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 
-
     private void InitialComponents() {
         btn_cadastrar_login = findViewById(R.id.btn_cadastrar_login);
         etd_email_login = findViewById(R.id.edt_email_login);
@@ -113,6 +111,4 @@ public class AutenticationActivity extends AppCompatActivity {
         btn_acessar_login = findViewById(R.id.btn_acessar_login);
 
     }
-
-
 }

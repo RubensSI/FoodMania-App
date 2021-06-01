@@ -38,7 +38,7 @@
                 android:id="@+id/button_choose_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="imagen" />
+                android:text="imagem" />
 
             <EditText
                 android:id="@+id/edit_text_file_name"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/button_choose_image"
-                android:hint="noma da imagem" />
+                android:hint="nome da imagem" />
 
         </LinearLayout>
 

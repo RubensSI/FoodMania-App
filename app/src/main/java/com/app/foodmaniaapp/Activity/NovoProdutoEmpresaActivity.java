@@ -1,13 +1,13 @@
 package com.app.foodmaniaapp.Activity;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import com.app.foodmaniaapp.R;
+
+import java.util.Objects;
 
 public class NovoProdutoEmpresaActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class NovoProdutoEmpresaActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Novo Produto");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
 

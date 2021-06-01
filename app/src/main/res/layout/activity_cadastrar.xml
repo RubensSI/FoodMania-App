@@ -53,7 +53,7 @@
         android:id="@+id/linear_tipo_usuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
@@ -69,8 +69,6 @@
             android:id="@+id/btn_switch_tipo_usuario"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:textStyle="normal" />
 
         <TextView
@@ -86,9 +84,22 @@
         android:layout_width="391dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="openRegister"
         android:padding="19dp"
         android:text="@string/cadastrar"
         android:theme="@style/style_button_default" />
+
+    <Button
+        android:id="@+id/btn_acessar_emp_config"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/botao_cadastro"
+        android:onClick="openRegister"
+        android:padding="10dp"
+        android:text="@string/acessar"
+        android:textColor="#878787"
+        android:theme="@style/CardView" />
 
 </LinearLayout>

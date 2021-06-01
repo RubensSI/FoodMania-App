@@ -85,6 +85,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
      private void abrirConfigaracoes() {
 
-         startActivity(new Intent( HomeActivity.this, AutenticationActivity.class));
+         startActivity(new Intent( HomeActivity.this, ConfiguracoesUsuarioActivity.class));
      }
 }
