@@ -35,7 +35,6 @@ public class AutenticationActivity extends AppCompatActivity {
         InitialComponents();
 
         autentication = FirebaseConfig.getFirefebaseAutentication();
-        autentication.signOut();
 
         // verificar usuario logado
         checkUser();
@@ -58,7 +57,8 @@ public class AutenticationActivity extends AppCompatActivity {
                                     Toast.makeText(AutenticationActivity.this,
                                             "Usuário logado com sucesso ",
                                             Toast.LENGTH_SHORT).show();
-                                    OpenHome();
+                                    FirebaseUser currentUser = autentication.getCurrentUser();
+                                    OpenHome(currentUser.getDisplayName());
                                 } else {
                                     Toast.makeText(AutenticationActivity.this,
                                             "Erro ao fazer login " + task.getException(),
@@ -96,12 +96,16 @@ public class AutenticationActivity extends AppCompatActivity {
     private void checkUser() {
         FirebaseUser currentUser = autentication.getCurrentUser();
         if ( currentUser != null ) {
-            OpenHome();
+            OpenHome(currentUser.getDisplayName());
         }
     }
 
-    private void OpenHome() {
-       startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+    private void OpenHome(String tipoUsuario) {
+       if (tipoUsuario.equals("E")) {
+           startActivity(new Intent(getApplicationContext(), EmpresaActivity.class));
+        } else {
+           startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+       }
     }
 
     private void InitialComponents() {

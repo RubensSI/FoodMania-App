@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">FoodManiaApp</string>
-    <string name="email">Email</string>
-    <string name="password">Senha</string>
+    <string name="email"><font size="15">E-mail</font></string>
+    <string name="password"><font size="15">Senha</font></string>
     <string name="acessar">Acessar</string>
     <string name="txt_switch_user">Usuário</string>
     <string name="txt_switch_empresa">Empresa</string>
     <string name="cadastrar">Cadastrar</string>
-    <string name="senha">Senha</string>
-    <string name="nome">Nome</string>
+    <string name="senha"><font size="15">Senha</font></string>
+    <string name="nome"><font size="15">Nome</font></string>
     <string name="nome_empresa"><font size="15">Nome Empresa</font></string>
     <string name="categoria"><font size="15">Categoria</font></string>
     <string name="tempo_de_entrega"><font size="15">Tempo de entrega</font></string>

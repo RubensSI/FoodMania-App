@@ -85,9 +85,42 @@ public class CadastrarActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            Toast.makeText(CadastrarActivity.this,"Preencha o campo senha",
-                                    Toast.LENGTH_SHORT).show();
+                            autentication.createUserWithEmailAndPassword(
+                                    email, senha
+                            ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(CadastrarActivity.this,
+                                                "Cadastro realizado com sucesso!",
+                                                Toast.LENGTH_SHORT).show();
+                                        String tipoUsuario = getTipoUsuario();
+                                        mFirebaseUsers.atualizarTipoUsuario(tipoUsuario);
+                                        OpenHome(tipoUsuario);
+                                    } else {
+                                        String erroExcesao = " ";
+                                        try {
+                                            throw task.getException();
+                                        } catch (FirebaseAuthWeakPasswordException e) {
+                                            erroExcesao = "Digite uma senha mais forte";
+                                        } catch (FirebaseAuthInvalidCredentialsException e) {
+                                            erroExcesao = "Por favor, digite um email valido";
+                                        } catch (FirebaseAuthUserCollisionException e) {
+                                            erroExcesao = "Esta conta já foi cadastrada";
+                                        } catch (Exception e) {
+                                            erroExcesao = "ao cadastrar usuário: " + e.getMessage();
+                                            e.printStackTrace();
+                                        }
+
+                                        Toast.makeText(CadastrarActivity.this, "Erro" +
+                                                erroExcesao, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }
+                    } else {
+                        Toast.makeText(CadastrarActivity.this,"Preencha o campo senha",
+                                Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

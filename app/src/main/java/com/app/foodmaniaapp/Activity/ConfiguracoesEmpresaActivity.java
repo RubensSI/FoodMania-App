@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.foodmaniaapp.Helper.FirebaseConfig;
 import com.app.foodmaniaapp.Helper.mFirebaseUsers;
 import com.app.foodmaniaapp.Model.Empresa;
 import com.app.foodmaniaapp.Model.Upload;
@@ -27,14 +28,18 @@ import java.util.Objects;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
 public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -59,6 +64,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
     private String DownloadUrl = "";
 
     private StorageReference mStorageRef;
+    private DatabaseReference mFirebaseRef;
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
 
@@ -93,10 +99,13 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                 .child("imagens")
                 .child("empresas")
                 .child(idUsuarioLogado + "jpeg");
+
         mDatabaseRef = FirebaseDatabase.getInstance().getReference()
                 .child("imagens")
                 .child("empresas")
                 .child(idUsuarioLogado + "jpeg");
+
+        mFirebaseRef = FirebaseConfig.getReferenceFirebase();
 
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +127,8 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                 validarDadosEmpresa();
             }
         });
+
+        recuperarDasdosEmpresa();
     }
 
     private void openFileChooser() {
@@ -125,6 +136,37 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    private void recuperarDasdosEmpresa() {
+        DatabaseReference mEmpresaRef = mFirebaseRef
+                .child( "empresas" )
+                .child( idUsuarioLogado );
+        mEmpresaRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if ( dataSnapshot.getValue() != null ) {
+                    Empresa empresa = dataSnapshot.getValue(Empresa.class);
+                    edt_nome_emp_config.setText(empresa.getNome());
+                    edt_categoria_emp_config.setText(empresa.getCategoria());
+                    edt_taxa_emp_config.setText(empresa.getPrecoEntrega().toString());
+                    edt_tempo_emp_config.setText(empresa.getTempo());
+
+                    DownloadUrl = empresa.getUrlImagem();
+
+                    if (DownloadUrl != "") {
+                        Picasso.get()
+                                .load(DownloadUrl)
+                                .into(mImageView);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void validarDadosEmpresa() {
@@ -146,8 +188,8 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                         empresa.setCategoria( categoria );
                         empresa.setUrlImagem( DownloadUrl );
                         empresa.salvar();
-                        exibirMensagem("Empresa adicionada com sucesso!");
                         finish();
+                        exibirMensagem("Empresa adicionada com sucesso!");
 
                     } else {
                         exibirMensagem("Digite um tempo de entrega");
@@ -229,7 +271,8 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                     });
 
         } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nenhuma imagem selecionada", Toast.LENGTH_SHORT)
+                    .show();
         }
     }
 }
