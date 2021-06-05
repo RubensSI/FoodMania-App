@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -40,6 +41,8 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -57,7 +60,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
     // componentes upload imagem
     private EditText mEditTextFileName;
-    private ImageView mImageView;
+    private CircleImageView mImageView;
     private ProgressBar mProgressBar;
     private Uri mImageUri;
 
@@ -74,6 +77,9 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes_empresa);
+
+        idUsuarioLogado = mFirebaseUsers.getUserId();
+        mFirebaseRef = FirebaseConfig.getReferenceFirebase();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Configurações");
@@ -93,8 +99,6 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
         edt_taxa_emp_config = findViewById(R.id.edt_taxa_emp_config);
         btn_salvar_emp_config = findViewById(R.id.btn_salvar_emp_config);
 
-        idUsuarioLogado = mFirebaseUsers.getUserId();
-
         mStorageRef = FirebaseStorage.getInstance().getReference()
                 .child("imagens")
                 .child("empresas")
@@ -104,8 +108,6 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                 .child("imagens")
                 .child("empresas")
                 .child(idUsuarioLogado + "jpeg");
-
-        mFirebaseRef = FirebaseConfig.getReferenceFirebase();
 
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,27 +133,19 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
         recuperarDasdosEmpresa();
     }
 
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-    }
-
     private void recuperarDasdosEmpresa() {
         DatabaseReference mEmpresaRef = mFirebaseRef
-                .child( "empresas" )
+                .child( "empresa" )
                 .child( idUsuarioLogado );
         mEmpresaRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if ( dataSnapshot.getValue() != null ) {
                     Empresa empresa = dataSnapshot.getValue(Empresa.class);
                     edt_nome_emp_config.setText(empresa.getNome());
                     edt_categoria_emp_config.setText(empresa.getCategoria());
                     edt_taxa_emp_config.setText(empresa.getPrecoEntrega().toString());
                     edt_tempo_emp_config.setText(empresa.getTempo());
-
                     DownloadUrl = empresa.getUrlImagem();
 
                     if (DownloadUrl != "") {
@@ -163,51 +157,16 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
 
-    private void validarDadosEmpresa() {
-
-        String nome = edt_nome_emp_config.getText().toString();
-        String taxa = edt_taxa_emp_config.getText().toString();
-        String categoria = edt_categoria_emp_config.getText().toString();
-        String tempo = edt_tempo_emp_config.getText().toString();
-
-        if ( !nome.isEmpty() ) {
-            if ( !taxa.isEmpty() ) {
-                if ( !categoria.isEmpty() ) {
-                    if ( !tempo.isEmpty() ) {
-
-                        Empresa empresa = new Empresa();
-                        empresa.setIdUsuario( idUsuarioLogado );
-                        empresa.setNome( nome );
-                        empresa.setPrecoEntrega( Double.parseDouble(taxa));
-                        empresa.setCategoria( categoria );
-                        empresa.setUrlImagem( DownloadUrl );
-                        empresa.salvar();
-                        finish();
-                        exibirMensagem("Empresa adicionada com sucesso!");
-
-                    } else {
-                        exibirMensagem("Digite um tempo de entrega");
-                    }
-                } else {
-                    exibirMensagem("Digite uma categoria");
-                }
-            } else {
-                exibirMensagem("Digite uma taxa de entrega");
-            }
-        } else {
-            exibirMensagem("Digite um nome para a empresa");
-        }
-
-    }
-
-    private void exibirMensagem(String texto) {
-        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     @Override
@@ -235,6 +194,15 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    DownloadUrl = uri.toString();
+                                    //Log.i("UPLOAD",  DownloadUrl);
+                                }
+                            });
+
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -245,8 +213,7 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
 
                             Toast.makeText(ConfiguracoesEmpresaActivity.this,
                                     "Upload realizado com sucesso", Toast.LENGTH_LONG).show();
-                                     DownloadUrl = taskSnapshot.getMetadata().getReference()
-                                    .getDownloadUrl().toString();
+
                             Upload upload = new Upload(mEditTextFileName.getText().toString()
                                     .trim(), DownloadUrl);
 
@@ -274,5 +241,47 @@ public class ConfiguracoesEmpresaActivity extends AppCompatActivity {
             Toast.makeText(this, "Nenhuma imagem selecionada", Toast.LENGTH_SHORT)
                     .show();
         }
+    }
+
+    private void validarDadosEmpresa() {
+
+        String nome = edt_nome_emp_config.getText().toString();
+        String taxa = edt_taxa_emp_config.getText().toString();
+        String categoria = edt_categoria_emp_config.getText().toString();
+        String tempo = edt_tempo_emp_config.getText().toString();
+
+        if ( !nome.isEmpty() ) {
+            if ( !taxa.isEmpty() ) {
+                if ( !categoria.isEmpty() ) {
+                    if ( !tempo.isEmpty() ) {
+
+                        Empresa empresa = new Empresa();
+                        empresa.setIdUsuario( idUsuarioLogado );
+                        empresa.setNome( nome );
+                        empresa.setPrecoEntrega( Double.parseDouble(taxa));
+                        empresa.setTempo(tempo);
+                        empresa.setCategoria( categoria );
+                        empresa.setUrlImagem( DownloadUrl );
+                        empresa.salvar();
+                        finish();
+                        exibirMensagem("Empresa adicionada com sucesso!");
+
+                    } else {
+                        exibirMensagem("Digite um tempo de entrega");
+                    }
+                } else {
+                    exibirMensagem("Digite uma categoria");
+                }
+            } else {
+                exibirMensagem("Digite uma taxa de entrega");
+            }
+        } else {
+            exibirMensagem("Digite um nome para a empresa");
+        }
+
+    }
+
+    private void exibirMensagem(String texto) {
+        Toast.makeText(this, texto, Toast.LENGTH_SHORT).show();
     }
 }
