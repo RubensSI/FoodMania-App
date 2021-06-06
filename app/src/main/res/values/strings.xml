@@ -18,4 +18,12 @@
     <string name="upload_image">upload</string>
     <string name="edit_email_hint"><font size="15">E-mail</font></string>
     <string name="edit_senha_hint"><font size="15">Senha</font></string>
+    <string name="nome_produto">Nome produto</string>
+    <string name="descri_o">Descrição</string>
+    <string name="pre_o_do_produto">preço do produto</string>
+    <string name="pre_o">Preço</string>
+    <string name="todo">TODO</string>
+    <string name="salm_o_com_nosso_delicioso_arroz_temperado">Salmão com nosso delicioso arroz temperado</string>
+    <string name="sushi_de_salm_o">Sushi de salmão</string>
+    <string name="r_19_90">R$ 19.90</string>
 </resources>

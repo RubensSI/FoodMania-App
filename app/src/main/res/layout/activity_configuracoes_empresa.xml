@@ -130,7 +130,7 @@
             android:background="@drawable/bg_edit_text"
             android:ems="10"
             android:hint="@string/taxa_de_entrega"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             android:padding="13dp" />
 
         <Button

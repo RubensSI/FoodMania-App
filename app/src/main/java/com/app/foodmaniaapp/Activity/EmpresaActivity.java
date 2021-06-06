@@ -1,9 +1,10 @@
 package com.app.foodmaniaapp.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Build;
@@ -12,26 +13,83 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.app.foodmaniaapp.Adapter.AdapterProduto;
 import com.app.foodmaniaapp.Helper.FirebaseConfig;
+import com.app.foodmaniaapp.Helper.mFirebaseUsers;
+import com.app.foodmaniaapp.Model.Produto;
 import com.app.foodmaniaapp.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmpresaActivity extends AppCompatActivity {
 
     private FirebaseAuth autentication;
+    private RecyclerView recyclerProdutos;
+    private AdapterProduto adapterProduto;
+    private List<Produto> produtos = new ArrayList<>();
+    private DatabaseReference mFirebaseRef;
+    private String idUsuarioLogado;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empresa);
 
+        /* Configuraçõe iniciais */
+        inicializarComponentes();
+
         autentication = FirebaseConfig.getFirefebaseAutentication();
+        mFirebaseRef = FirebaseConfig.getReferenceFirebase();
+        idUsuarioLogado = mFirebaseUsers.getUserId();
 
         // Configuração Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("FoodMania - Empresa");
         setSupportActionBar(toolbar);
+
+        recyclerProdutos.setLayoutManager( new LinearLayoutManager(this));
+        recyclerProdutos.setHasFixedSize(false);
+        adapterProduto = new AdapterProduto(produtos, this);
+        recyclerProdutos.setAdapter(adapterProduto);
+
+        /* Recupera produtos para empresa */
+        recuperarProdutos();
+    }
+
+    private void recuperarProdutos() {
+
+        DatabaseReference mProdutosRef = mFirebaseRef
+                .child( "produtos" )
+                .child( idUsuarioLogado );
+        mProdutosRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@androidx.annotation.NonNull DataSnapshot dataSnapshot) {
+                produtos.clear();
+
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    produtos.add(ds.getValue(Produto.class));
+                }
+
+                adapterProduto.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@androidx.annotation.NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void inicializarComponentes() {
+        recyclerProdutos = findViewById(R.id.recyclerProdutos);
     }
 
     @Override

@@ -13,5 +13,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/edt_nome_prod_novoprod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="@string/nome_produto"
+            android:inputType="text"
+            android:padding="13dp" />
+
+        <EditText
+            android:id="@+id/edt_desc_prod_novoprod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="@string/descri_o"
+            android:inputType="text"
+            android:padding="13dp" />
+
+        <EditText
+            android:id="@+id/edt_preco_prod_novoprod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/bg_edit_text"
+            android:ems="10"
+            android:hint="@string/pre_o"
+            android:inputType="numberDecimal"
+            android:padding="13dp" />
+
+        <Button
+            android:id="@+id/btn_salvar_emp_config"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="validarDadosProduto"
+            android:padding="19dp"
+            android:text="@string/salvar"
+            android:theme="@style/style_button_default" />
+
+    </LinearLayout>
 
 </LinearLayout>
