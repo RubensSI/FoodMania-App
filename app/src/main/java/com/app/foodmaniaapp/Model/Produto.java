@@ -10,12 +10,16 @@ import com.google.firebase.database.DatabaseReference;
 public class Produto {
 
     private String idUsuario;
+    private String idProduto;
     private String nome;
     private String descricao;
     private Double preco;
 
     public Produto() {
-
+        DatabaseReference mFirebaseRef = FirebaseConfig.getReferenceFirebase();
+        DatabaseReference mProdutoRef = mFirebaseRef
+                .child("produtos");
+        setIdProduto( mProdutoRef.push().getKey() );
     }
 
     public void salvar() {
@@ -23,8 +27,17 @@ public class Produto {
         DatabaseReference mProdutoRef = mFirebaseRef
                 .child("produtos")
                 .child( getIdUsuario() )
-                .push();
+                .child( getIdProduto() );
         mProdutoRef.setValue(this);
+    }
+
+    public void remover() {
+        DatabaseReference mFirebaseRef = FirebaseConfig.getReferenceFirebase();
+        DatabaseReference mProdutoRef = mFirebaseRef
+                .child("produtos")
+                .child( getIdUsuario() )
+                .child( getIdProduto() );
+        mProdutoRef.removeValue();
     }
 
     public String getIdUsuario() {
@@ -34,6 +47,10 @@ public class Produto {
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
+
+    public String getIdProduto() { return idProduto; }
+
+    public void setIdProduto(String idProduto) { this.idProduto = idProduto; }
 
     public String getNome() {
         return nome;

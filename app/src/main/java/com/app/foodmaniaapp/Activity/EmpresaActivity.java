@@ -1,21 +1,23 @@
 package com.app.foodmaniaapp.Activity;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.app.foodmaniaapp.Adapter.AdapterProduto;
 import com.app.foodmaniaapp.Helper.FirebaseConfig;
 import com.app.foodmaniaapp.Helper.mFirebaseUsers;
+import com.app.foodmaniaapp.Listener.RecyclerItemClickListener;
 import com.app.foodmaniaapp.Model.Produto;
 import com.app.foodmaniaapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,12 +57,37 @@ public class EmpresaActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         recyclerProdutos.setLayoutManager( new LinearLayoutManager(this));
-        recyclerProdutos.setHasFixedSize(false);
+        recyclerProdutos.setHasFixedSize(true);
         adapterProduto = new AdapterProduto(produtos, this);
         recyclerProdutos.setAdapter(adapterProduto);
 
         /* Recupera produtos para empresa */
         recuperarProdutos();
+
+        /* Adicionar evento de clique ao recycleview */
+        recyclerProdutos.addOnItemTouchListener(new RecyclerItemClickListener(
+                this,
+                recyclerProdutos,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        Produto produtoSelecionado = produtos.get(position);
+                        produtoSelecionado.remover();
+                        Toast.makeText(EmpresaActivity.this,
+                                "Produto excluído com sucesso", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+                }
+        ));
     }
 
     private void recuperarProdutos() {
@@ -89,7 +116,7 @@ public class EmpresaActivity extends AppCompatActivity {
     }
 
     private void inicializarComponentes() {
-        recyclerProdutos = findViewById(R.id.recyclerProdutos);
+        recyclerProdutos = findViewById(R.id.recyclerEmpresa);
     }
 
     @Override

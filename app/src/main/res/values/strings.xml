@@ -11,17 +11,16 @@
     <string name="nome_empresa"><font size="15">Nome Empresa</font></string>
     <string name="categoria"><font size="15">Categoria</font></string>
     <string name="tempo_de_entrega"><font size="15">Tempo de entrega</font></string>
-    <string name="valor_do_produto">Valor do produto</string>
+    <string name="valor_do_produto"><font size="15">Valor do produto</font></string>
     <string name="salvar">salvar</string>
     <string name="taxa_de_entrega"><font size="15">Taxa de Entrega</font></string>
-    <string name="show_upload">exibe upload</string>
+    <string name="show_upload"><font size="15">exibe upload</font></string>
     <string name="upload_image">upload</string>
     <string name="edit_email_hint"><font size="15">E-mail</font></string>
     <string name="edit_senha_hint"><font size="15">Senha</font></string>
-    <string name="nome_produto">Nome produto</string>
-    <string name="descri_o">Descrição</string>
-    <string name="pre_o_do_produto">preço do produto</string>
-    <string name="pre_o">Preço</string>
+    <string name="nome_produto"><font size="15">Nome produto</font></string>
+    <string name="descri_o"><font size="15">Descrição</font></string>
+    <string name="pre_o"><font size="15">preço produto</font></string>
     <string name="todo">TODO</string>
     <string name="salm_o_com_nosso_delicioso_arroz_temperado">Salmão com nosso delicioso arroz temperado</string>
     <string name="sushi_de_salm_o">Sushi de salmão</string>

@@ -3,7 +3,9 @@ package com.app.foodmaniaapp.Model;
 import com.app.foodmaniaapp.Helper.FirebaseConfig;
 import com.google.firebase.database.DatabaseReference;
 
-public class Empresa {
+import java.io.Serializable;
+
+public class Empresa implements Serializable {
     private String idUsuario;
     private String urlImagem;
     private String nome;

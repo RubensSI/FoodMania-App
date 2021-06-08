@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.foodmaniaapp">
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,8 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodManiaApp">
-        <activity android:name=".Activity.ConfiguracoesUsuarioActivity"
+        <activity android:name=".Activity.CardapioActivity"
             android:parentActivityName=".Activity.HomeActivity"></activity>
+        <activity android:name=".Activity.HomeActivity" />
+        <activity
+            android:name=".Activity.ConfiguracoesUsuarioActivity"
+            android:parentActivityName=".Activity.HomeActivity" />
         <activity
             android:name=".Activity.NovoProdutoEmpresaActivity"
             android:parentActivityName=".Activity.EmpresaActivity" />
@@ -20,7 +24,6 @@
             android:name=".Activity.ConfiguracoesEmpresaActivity"
             android:parentActivityName=".Activity.EmpresaActivity" />
         <activity android:name=".Activity.EmpresaActivity" />
-        <activity android:name=".Activity.HomeActivity" />
         <activity android:name=".Activity.CadastrarActivity" />
         <activity android:name=".Activity.AutenticationActivity" />
         <activity android:name=".Activity.SplashActivity">
